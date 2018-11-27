@@ -2,7 +2,7 @@
   "name": "vue-cli-demo",
   "version": "1.0.0",
   "description": "vue+vue-router+vuex+axios",
-  "author": "wuyaping <yaping.wu01@hoomsun.com>",
+  "author": "wuyapingzi",
   "private": true,
   "scripts": {
     "dev": "webpack-dev-server --inline --progress --config build/webpack.dev.conf.js",

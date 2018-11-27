@@ -1,6 +1,7 @@
 <template>
   <div id="app">
     <img src="./assets/logo.png">
+    <!-- 路由匹配到的路径加载的视图 -->
     <router-view/>
   </div>
 </template>
