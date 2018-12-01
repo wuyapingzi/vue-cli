@@ -1,8 +1,25 @@
 <template>
   <div id="app">
-    <img src="./assets/logo.png">
+    <!-- <img src="./assets/logo.png"> -->
     <!-- 路由匹配到的路径加载的视图 -->
-    <router-view/>
+    <div class="nav-box">
+      <ul class='nav'>
+        <router-link to='/' tag='li' exact>
+          <i class="fa fa-home"></i>
+          <span>home</span>
+        </router-link>
+        <router-link to='/document' tag='li' active-class="activeClass" >
+          <i></i>
+          <span>document</span>
+        </router-link>
+        <router-link to='/about' tag='li'>
+          <i></i>
+          <span>about</span>
+        </router-link>
+      </ul>
+    </div>
+    <!-- 给router-view添加class 就是给所有的视图顶级的div添加样式 -->
+    <router-view class="center"/>
   </div>
 </template>
 
@@ -13,12 +30,5 @@ export default {
 </script>
 
 <style>
-#app {
-  font-family: 'Avenir', Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
-}
+
 </style>

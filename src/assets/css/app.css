@@ -1,13 +1,3 @@
-@import './index.css';
-
-@import './project.css';
-
+@import './reset.css';
+@import './font.css';
 @import './home.css';
-
-@import "./doc.css";
-
-@import "./container.css";
-
-@import "./nav.css";
-
-@import "./login.css";
