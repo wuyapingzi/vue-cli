@@ -4,15 +4,15 @@
     <!-- 路由匹配到的路径加载的视图 -->
     <div class="nav-box">
       <ul class='nav'>
-        <router-link to='/' tag='li' exact>
+        <router-link to='/' tag='li' exact event='mouseover'>
           <i class="fa fa-home"></i>
           <span>home</span>
         </router-link>
-        <router-link to='/document' tag='li' active-class="activeClass" >
+        <router-link :to='{path: "/document"}' tag='li' active-class="activeClass" >
           <i></i>
           <span>document</span>
         </router-link>
-        <router-link to='/about' tag='li'>
+        <router-link to='/about' tag='li' event='mouseover'>
           <i></i>
           <span>about</span>
         </router-link>
