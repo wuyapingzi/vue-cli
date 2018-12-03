@@ -16,8 +16,15 @@
           <i></i>
           <span>about</span>
         </router-link>
+        <router-link to='/user' tag='li'>
+          <i></i>
+          <span>user</span>
+        </router-link>
       </ul>
     </div>
+    <!-- 命名视图 -->
+    <router-view name='slider'/>
+
     <!-- 给router-view添加class 就是给所有的视图顶级的div添加样式 -->
     <router-view class="center"/>
   </div>

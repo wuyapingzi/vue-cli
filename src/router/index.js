@@ -4,16 +4,38 @@ import Router from 'vue-router'
 import Home from '@/components/home'
 import About from '@/components/about'
 import Document from '@/components/document'
+import User from '@/components/user'
 // import Error404 from '@/components/404'
 import AboutStudy from '@/components/views/about-study'
 import AboutWork from '@/components/views/about-work'
 import AboutHobby from '@/components/views/about-hobby'
+
+import Slider from '@/components/views/slider'
 
 Vue.use(Router) // 安装vue-router插件
 
 export default new Router({
   mode: 'history',
   // linkActiveClass: 'is-active', // 全局设置激活的router-link的样式
+  scrollBehavior (to, from, savePosition) { // 点击浏览器的前进后退或者切换导航的时候触发
+    // to：要进入的目标路由对象
+    // from：离开的目标路由对象
+    // savePosition：记录滚动条的坐标，点击前进后退的时候记录值
+
+    // 利用savePosition记录的滚动条的位置，在前进或者后退的时候直接定位到该位置
+    if (savePosition) {
+      return savePosition
+    } else {
+      return {x: 0, y: 0}
+    }
+
+    // 利用目标对象的hash值定位页面中的某个元素
+    // if (to.hash) {
+    //   return {
+    //     selector: to.hash
+    //   }
+    // }
+  },
   routes: [
     {
       path: '/',
@@ -32,21 +54,30 @@ export default new Router({
           name: 'Study'
         },
         {
-          path: 'work',
+          path: 'work', // 相对于父级路由的子路由 /about/work
           component: AboutWork,
-          name: 'Work'
+          name: 'AboutWork'
         },
         {
           path: 'hobby',
           component: AboutHobby,
-          name: 'Hobby'
+          name: 'AboutHobby'
         }
       ]
     },
     {
       path: '/document',
       name: 'Document',
-      component: Document
+      // Document组件中渲染两个组件，其中slider是命名视图。
+      components: {
+        default: Document,
+        slider: Slider
+      }
+    },
+    {
+      path: '/user/:id?', // ？正则表达式的匹配规则，表示匹配0个或1个  /user  /user/1  /user/2
+      name: 'User',
+      component: User
     },
     {
       path: '*',
