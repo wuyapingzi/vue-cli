@@ -22,11 +22,18 @@
         </router-link>
       </ul>
     </div>
-    <!-- 命名视图 -->
-    <router-view name='slider'/>
+    <!-- mode="out-in" 先出后进模式   mode="in-out" 先进后出模式-->
+    <!-- <transition mode="out-in">
+      <router-view class="center"/>
+    </transition> -->
 
-    <!-- 给router-view添加class 就是给所有的视图顶级的div添加样式 -->
-    <router-view class="center"/>
+    <!-- name="left" name的值可以代替v -->
+    <transition name="left">
+      <!-- 命名视图 -->
+      <!-- <router-view name='slider'/> -->
+      <!-- 给router-view添加class 就是给所有的视图顶级的div添加样式 -->
+      <router-view class="center"/>
+    </transition>
   </div>
 </template>
 
@@ -37,5 +44,38 @@ export default {
 </script>
 
 <style>
+  /* .v-enter {
+    opacity: 0;
+  }
+  .v-enter-to {
+    opacity: 1;
+  }
+  .v-enter-active {
+    transition: 1s
+  }
+  .v-leave {
+    opacity: 1;
+  }
+  .v-leave-to {
+    opacity: 0;
+  }
+  .v-leave-active {
+    transition: 2s
+  } */
+  .left-enter {
+    transform: translateX(100%)
+  }
+  .left-enter-to {
+    transform: translateX(0)
+  }
+  .left-enter-active, .left-leave-active {
+    transition: 1s
+  }
+  .left-leave {
+    transform: translateX(0)
+  }
+  .left-leave-to {
+    transform: translateX(-100%)
+  }
 
 </style>

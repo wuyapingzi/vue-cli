@@ -88,7 +88,6 @@ export default new Router({
       // redirect: {name: 'Home'},
       redirect: (to) => { // 动态设置目标路由
         // to：目标路由信息对象
-        console.log(to)
         if (to.path === '/abc') {
           return '/about'
         } else if (to.path === '/123') {

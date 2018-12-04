@@ -2,7 +2,7 @@
   <div>
     我是user
     <div class="user-list">
-      <router-link :to="'/user/'+ item.id" :key="item.id" active-class="is-active" v-for="item in userList">
+      <router-link :to="'/user/'+ item.id + '?info=follow'" :key="item.id" active-class="is-active" v-for="item in userList">
         {{item.name}}
       </router-link>
     </div>
@@ -14,6 +14,18 @@
       <p>
         年龄：{{userInfo.age}}
       </p>
+    </div>
+    <hr/>
+    <div>
+      <router-link v-if="userInfo.name" style="font-size: 14px" exact to="?info=follow" active-class="activeClass">
+        他的关注
+      </router-link>
+      <router-link v-if="userInfo.name" style="font-size: 14px" exact :to="{path: '', query: {info: 'share'}}" active-class="activeClass">
+        他的分享
+      </router-link>
+      <div>
+        {{$route.query}}
+      </div>
     </div>
   </div>
 </template>
@@ -43,17 +55,25 @@ export default {
       userInfo: {}
     }
   },
+  watch: {
+    // 路径发生变化，$route会重新赋值，监控这个属性，会执行这个函数。
+    $route () {
+      this.getUserInfo()
+    }
+  },
   created () {
-    let userId = this.$route.params.id
-    console.log(this.userList)
-    if (userId) {
-      this.userInfo = this.userList.filter((item) => {
-        console.log(item.id)
-        return item.id === userId
-      })[0]
-      console.log(this.userInfo)
-    } else {
-      this.userInfo = {}
+    this.getUserInfo()
+  },
+  methods: {
+    getUserInfo () {
+      let userId = this.$route.params.id - 0
+      if (userId) {
+        this.userInfo = this.userList.filter((item) => {
+          return item.id === userId
+        })[0]
+      } else {
+        this.userInfo = {}
+      }
     }
   }
 }
