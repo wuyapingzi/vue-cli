@@ -14,7 +14,7 @@ import Slider from '@/components/views/slider'
 
 Vue.use(Router) // 安装vue-router插件
 
-export default new Router({
+let router = new Router({
   mode: 'history',
   // linkActiveClass: 'is-active', // 全局设置激活的router-link的样式
   scrollBehavior (to, from, savePosition) { // 点击浏览器的前进后退或者切换导航的时候触发
@@ -41,6 +41,14 @@ export default new Router({
       path: '/',
       name: 'Home',
       component: Home,
+      meta: {
+        title: 'Home'
+      },
+      // 钩子函数
+      beforeEnter (to, from, next) {
+        console.log('beforeEnter', to)
+        next()
+      },
       alias: '/index' // 路由的别名，别名的路由在router-link里不是激活的状态，因为router-link里设置的是'/'
     },
     {
@@ -51,16 +59,25 @@ export default new Router({
         {
           path: '', // path的值为空，则表示默认的子路由
           component: AboutStudy,
+          meta: {
+            title: 'AboutStudy'
+          },
           name: 'Study'
         },
         {
           path: 'work', // 相对于父级路由的子路由 /about/work
           component: AboutWork,
+          meta: {
+            title: 'AboutWork'
+          },
           name: 'AboutWork'
         },
         {
           path: 'hobby',
           component: AboutHobby,
+          meta: {
+            title: 'AboutHobby'
+          },
           name: 'AboutHobby'
         }
       ]
@@ -68,6 +85,10 @@ export default new Router({
     {
       path: '/document',
       name: 'Document',
+      meta: {
+        isLogin: true,
+        title: 'Document'
+      },
       // Document组件中渲染两个组件，其中slider是命名视图。
       components: {
         default: Document,
@@ -77,26 +98,44 @@ export default new Router({
     {
       path: '/user/:id?', // ？正则表达式的匹配规则，表示匹配0个或1个  /user  /user/1  /user/2
       name: 'User',
+      meta: {
+        title: 'User'
+      },
       component: User
     },
     {
-      path: '*',
+      path: '*'
       // component: Error404,
       // 重定向
       // redirect: '/'
       // redirect: {path: '/'}
       // redirect: {name: 'Home'},
-      redirect: (to) => { // 动态设置目标路由
-        // to：目标路由信息对象
-        if (to.path === '/abc') {
-          return '/about'
-        } else if (to.path === '/123') {
-          return {path: '/document'}
-        } else {
-          return {name: 'Home'}
-        }
-        // return '/'
-      }
+      // redirect: (to) => { // 动态设置目标路由
+      //   // to：目标路由信息对象
+      //   if (to.path === '/abc') {
+      //     return '/about'
+      //   } else if (to.path === '/123') {
+      //     return {path: '/document'}
+      //   } else {
+      //     return {name: 'Home'}
+      //   }
+      //   // return '/'
+      // }
     }
   ]
 })
+
+router.beforeEach((to, from, next) => {
+  console.log('导航钩子函数beforeEach', to.meta)
+  if (to.meta.isLogin) {
+    next('/login')
+  } else {
+    next()
+  }
+  if (to.meta.title) {
+    window.document.title = to.meta.title
+  } else {
+    // window.document.title = 'wuyapingzi'
+  }
+})
+export default router
